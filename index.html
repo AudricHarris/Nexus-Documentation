@@ -3,75 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nexus — Modern systems language</title>
+  <title>Nexus — Modern Systems Language</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css" 
-        integrity="sha512-h6vC3S5uHKHxhY6krv2u2NGhh3nK8C7QJbWNiJ9qT0J6jD+2fCmtDtW+ZeG3pDCoT+dg63mWKL4cLyV3T4Gzg==" 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="markdown-body">
+<body>
 
-<div class="header">
+  <div class="logo-container">
+    <div class="logo-hex">
+      <img src="images/nexusicon.png" alt="Nexus Logo — isometric cube with arched N">
+    </div>
+  </div>
+
   <h1>Nexus</h1>
-  <p class="tagline">Fast • Safe • Expressive • Built for 2026+</p>
+  <p class="tagline">Fast • Safe • Expressive • Built for 2026 and beyond</p>
 
   <div class="buttons">
-    <a href="https://github.com/AudricHarris/Nexus-Programming-Language" class="btn btn-primary">View on GitHub</a>
-    <a href="#getting-started" class="btn btn-outline">Get Started</a>
+    <a href="https://github.com/AudricHarris/Nexus-Programming-Language" class="btn btn-primary" target="_blank" rel="noopener">
+      <i class="fab fa-github"></i> View on GitHub
+    </a>
+
+    <a href="#install" class="btn btn-outline">
+      <i class="fas fa-download"></i> Install
+    </a>
+
+    <a href="docs/01-syntax-overview.md" class="btn btn-outline">
+      <i class="fas fa-book"></i> Syntax Overview
+    </a>
   </div>
-</div>
 
-<h2 id="what-is-nexus">What is Nexus?</h2>
+  <section id="install">
+    <h2>Installation</h2>
+    <p>Download the latest compiler executable from GitHub. Current recommended version: <strong>v1.3</strong></p>
+    
+    <ul>
+      <li>• <a href="https://github.com/AudricHarris/Nexus-Programming-Language/releases/latest">Download from Releases</a> (recommended — check for v1.3 or newer)</li>
+      <li>• Or browse older versions in <a href="https://github.com/AudricHarris/Nexus-Programming-Language/tree/main/versions">/versions folder</a></li>
+      <li>• Unzip → add to PATH (or run directly) → verify with <code>nexus --version</code></li>
+      <li>• Coming soon: one-line installer script</li>
+    </ul>
 
-<p>
-  Nexus is an opinionated, modern systems programming language that aims to deliver:
-</p>
-<ul>
-  <li>Performance close to C++ / Rust</li>
-  <li>Much simpler syntax and learning curve</li>
-  <li>Strong type system with no null / undefined</li>
-  <li>First-class async/await and structured concurrency</li>
-  <li>Excellent compiler errors and developer experience</li>
-</ul>
+    <div class="code-example">
+      After installing, try:
+      <pre><code>nexus new my-project
+cd my-project
+nexus run</code></pre>
+    </div>
+  </section>
 
-<h2 id="getting-started">Quick Start</h2>
-
-<pre><code class="language-bash"># 1. Install (placeholder — coming soon)
-# curl -fsSL https://get.nexus-lang.org | sh
-
-# 2. Create & run your first program
-nexus new hello-world
-cd hello-world
-nexus run
-</code></pre>
-
-<pre><code class="language-nexus">// main.nx
-fn main() {
-    let target = "Nexus"
-    println("Hello, {target} universe!")
-}
-</code></pre>
-
-<h2>Current Status — February 2026</h2>
-<ul>
-  <li>🚧 Very early prototype stage</li>
-  <li>Parser, basic type checker and LLVM codegen working</li>
-  <li>Can compile hello-world style programs to native binaries</li>
-  <li>No package manager, minimal standard library</li>
-  <li>Compiler currently written in Rust</li>
-</ul>
-
-<h2>Next steps / Documentation</h2>
-
-<ul>
-  <li><a href="docs/01-syntax-overview.md">Getting Started</a> — Learn the snytax of the language.</li>
-</ul>
-
-<hr>
-
-<footer>
-  <p>Made with focus on joy and safety in systems programming • 2025–2026</p>
-</footer>
+  <footer>
+    <p>Nexus — Joyful & safe systems programming • © 2025–2026 Audric Harris</p>
+  </footer>
 
 </body>
 </html>
