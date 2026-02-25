@@ -5,57 +5,100 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nexus — Modern Systems Language</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-  <div class="logo-container">
-    <div class="logo-hex">
-      <img src="images/nexusicon.png" alt="Nexus Logo — isometric cube with arched N">
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo">
+      <img src="images/nexusicon.png" alt="Nexus">
+      <span>NEXUS</span>
+    </a>
+
+    <!-- Search -->
+    <div class="topbar-search" id="searchBox">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search docs…" autocomplete="off" />
+      <div class="search-results" id="searchResults"></div>
     </div>
-  </div>
 
-  <h1>Nexus</h1>
-  <p class="tagline">Fast • Safe • Expressive • Built for 2026 and beyond</p>
-
-  <div class="buttons">
-    <a href="https://github.com/AudricHarris/Nexus-Programming-Language" class="btn btn-primary" target="_blank" rel="noopener">
-      <i class="fab fa-github"></i> View on GitHub
+    <a href="https://github.com/AudricHarris/Nexus-Programming-Language" class="topbar-github" target="_blank" rel="noopener">
+      <img src="images/githubicon.png" alt="GitHub" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;filter:invert(1) opacity(0.6);transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">
     </a>
+  </header>
 
-    <a href="#install" class="btn btn-outline">
-      <i class="fas fa-download"></i> Install
-    </a>
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Getting Started</div>
+        <a href="index.html" class="sidebar-link active">Home</a>
+        <a href="index.html#install" class="sidebar-link">Installation</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Language</div>
+        <a href="docs/01-syntax-overview.html" class="sidebar-link">Syntax Overview</a>
+          <!--<a href="docs/types.html" class="sidebar-link">Types</a>
+        <a href="docs/generics.html" class="sidebar-link">Generics</a>
+        <a href="docs/pattern-matching.html" class="sidebar-link">Pattern Matching</a>
+        <a href="docs/memory.html" class="sidebar-link">Memory & Ownership</a>
+        <a href="docs/classes.html" class="sidebar-link">Classes</a>
+        <a href="docs/functions.html" class="sidebar-link">Functions</a>
+        <a href="docs/io.html" class="sidebar-link">I/O & Printing</a>-->
+      </div>
+        <!--<div class="sidebar-section">
+        <div class="sidebar-label">Standard Library</div>
+        <a href="docs/stdlib-collections.html" class="sidebar-link">Collections</a>
+        <a href="docs/stdlib-options.html" class="sidebar-link">Options&lt;T&gt;</a>
+      </div>-->
+    </nav>
 
-    <a href="docs/01-syntax-overview.md" class="btn btn-outline">
-      <i class="fas fa-book"></i> Syntax Overview
-    </a>
-  </div>
+    <!-- CONTENT -->
+    <main class="content">
+      <!-- Hero -->
+      <section class="hero">
+        <img src="images/nexusicon.png" alt="Nexus Logo" class="hero-logo">
+        <h1>NEXUS</h1>
+        <p class="tagline">Object &bull; Oriented &bull; Memory safe &bull; coding language</p>
+        <div class="hero-buttons">
+          <a href="docs/01-syntax-overview.html" class="btn btn-outline">
+            <i class="fas fa-book"></i> Syntax Overview
+          </a>
+          <a href="#install" class="btn btn-outline">
+            <i class="fas fa-download"></i> Install
+          </a>
+          <a href="https://github.com/AudricHarris/Nexus-Programming-Language" class="btn btn-primary" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </section>
 
-  <section id="install">
-    <h2>Installation</h2>
-    <p>Download the latest compiler executable from GitHub. Current recommended version: <strong>v1.3</strong></p>
-    
-    <ul>
-      <li>• <a href="https://github.com/AudricHarris/Nexus-Programming-Language/releases/latest">Download from Releases</a> (recommended — check for v1.3 or newer)</li>
-      <li>• Or browse older versions in <a href="https://github.com/AudricHarris/Nexus-Programming-Language/tree/main/versions">/versions folder</a></li>
-      <li>• Unzip → add to PATH (or run directly) → verify with <code>nexus --version</code></li>
-      <li>• Coming soon: one-line installer script</li>
-    </ul>
-
-    <div class="code-example">
-      After installing, try:
-      <pre><code>nexus new my-project
+      <!-- Install -->
+      <section id="install">
+        <h2>Installation</h2>
+        <p>Download the latest compiler executable from GitHub. Current recommended version: <strong>v1.3</strong></p>
+        <ul>
+          <li>• <a href="https://github.com/AudricHarris/Nexus-Programming-Language/releases/latest">Download from Releases</a> — check for v1.3 or newer</li>
+          <li>• Unzip → add to PATH (or run directly) → verify with <code>nexus --version</code></li>
+          <li>• Coming soon: one-line installer script</li>
+        </ul>
+        <div class="code-example">
+          <div class="code-example-label">Quick start</div>
+          <pre><code>nexus new my-project
 cd my-project
 nexus run</code></pre>
-    </div>
-  </section>
+        </div>
+      </section>
 
-  <footer>
-    <p>Nexus — Joyful & safe systems programming • © 2025–2026 Audric Harris</p>
-  </footer>
+      <footer>
+        <p>Nexus — Joyful &amp; safe systems programming &bull; &copy; 2025–2026 Audric Harris</p>
+      </footer>
+    </main>
+  </div>
 
+  <script src="js/search.js"></script>
 </body>
 </html>
