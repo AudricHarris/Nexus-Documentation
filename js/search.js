@@ -7,7 +7,7 @@
 const DOC_INDEX = [
   {
     page: "Home",
-    url: "/index.html",
+    url: "Nexus-Documentation/index.html",
     sections: [
       { title: "Home", anchor: "", text: "Nexus fast safe expressive modern systems language 2026" },
       { title: "Installation", anchor: "#install", text: "install download compiler v1.3 releases nexus --version unzip PATH one-line installer script nexus new my-project cd nexus run" },
@@ -15,7 +15,7 @@ const DOC_INDEX = [
   },
   {
     page: "Syntax Overview",
-    url: "/docs/01-syntax-overview.html",
+    url: "Nexus-Documentation/docs/01-syntax-overview.html",
     sections: [
       { title: "Comments", anchor: "#", text: "comments block comment /* */ doc comment /! !/ inline annotation declaration" },
       { title: "Primitive Types", anchor: "#", text: "types i32 i64 f32 f64 bool str integer float boolean string statically typed numeric coercion" },
