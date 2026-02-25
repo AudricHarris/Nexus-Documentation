@@ -59,17 +59,16 @@
     <main class="content">
       <div class="doc-page">
         <h1>Syntax Overview</h1>
-        <p class="page-subtitle">A tour of Nexus syntax — generics, pattern matching, memory semantics, and more.</p>
+        <p class="page-subtitle">A tour of Nexus syntax generics, pattern matching, memory semantics, and more.</p>
 
         <!-- ── 1. COMMENTS ─────────────────────── -->
         <h2>Comments</h2>
-        <p>Nexus has two comment styles. Block comments use <code>/* … */</code> and are used for inline annotations. Inline documentation comments use <code>/! … !/</code> and appear on declarations to describe their purpose.</p>
+        <p>Nexus has two comment styles. Single line comments use <code>/* ... </code>. Block comments use <code>/! … !/</code>. This allows us to have the two types of divisions shown later. (As of 1.3 there are no documentation comments.)</p>
         <div class="code-example">
           <div class="code-example-label">comment styles</div>
-          <pre><code><span class="cm">/* This is a block comment. It ends automatically at the next newline
-   unless you open a new comment. */</span>
+          <pre><code><span class="cm">/* This is a block comment. It ends automatically at the end of a line.</span>
 
-<span class="cm">/! This is a doc comment — appears on functions, classes, methods. !/</span>
+<span class="cm">/! This is a block comment. This will span multiple lines. !/</span>
 
 <span class="kw">public</span> <span class="fn">Add</span>(<span class="ty">T</span> value) <span class="op">-></span> <span class="ty">LinkedList</span>&lt;<span class="ty">T</span>&gt;   <span class="cm">/! returns self for chaining !/</span></code></pre>
         </div>
@@ -126,13 +125,13 @@
 
         <!-- ── 5. VARIABLES & ASSIGNMENT ──────── -->
         <h2>Variables &amp; Assignment</h2>
-        <p>Variables are declared with their type. Nexus distinguishes between <em>copy assignment</em> (<code>=</code>) and <em>explicit move</em> (<code>&lt;-</code>), giving you control over ownership at every assignment site.</p>
+        <p>Variables are declared with their type (No null declaration). Nexus distinguishes between <em>copy assignment</em> (<code>=</code>) and <em>explicit move</em> (<code>&lt;-</code>), giving you control over ownership at every assignment site.</p>
         <div class="code-example">
           <div class="code-example-label">copy vs move</div>
           <pre><code><span class="ty">i32</span> x = <span class="nm">10</span>;               <span class="cm">/* copy */</span>
 <span class="ty">i32</span> y &lt;- x;              <span class="cm">/* explicit move — x is no longer valid */</span>
 
-<span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; tmp <span class="op">&amp;=</span> self.head;  <span class="cm">/* borrow reference */</span></code></pre>
+<span class="ty">i32</span> tmp &lt;<span class="op">&amp;=</span> y;  <span class="cm">/* borrow reference */</span></code></pre>
         </div>
         <table class="doc-table">
           <thead><tr><th>Syntax</th><th>Semantics</th></tr></thead>
@@ -143,225 +142,10 @@
           </tbody>
         </table>
 
-        <!-- ── 6. CONTROL FLOW ─────────────────── -->
-        <h2>Control Flow</h2>
-        <h3>For Loop</h3>
-        <div class="code-example">
-          <div class="code-example-label">for loop</div>
-          <pre><code><span class="kw">for</span> (<span class="ty">i32</span> cpt = <span class="nm">0</span>; cpt &lt; i; cpt++)
-{
-    <span class="cm">/* body */</span>
-}</code></pre>
-        </div>
-
-        <h3>While Loop — single-line form</h3>
-        <p>When the body is a single expression, Nexus allows a compact <code>=></code> form:</p>
-        <div class="code-example">
-          <div class="code-example-label">while loop</div>
-          <pre><code><span class="kw">while</span> <span class="kw">true</span> <span class="op">=></span> <span class="fn">Printf</span>(<span class="st">"Testing single line loops"</span>);
-
-<span class="cm">/* multi-line form */</span>
-<span class="kw">while</span> condition
-{
-    <span class="cm">/* body */</span>
-}</code></pre>
-        </div>
-
-        <!-- ── 7. SUM TYPES / ENUMS ────────────── -->
-        <h2>Sum Types (Enums)</h2>
-        <p>Sum types are declared with the <code>sum</code> keyword. Each variant can optionally carry data. They are the foundation for safe null-free programming in Nexus.</p>
-        <div class="code-example">
-          <div class="code-example-label">Options&lt;T&gt; — built-in sum type</div>
-          <pre><code><span class="kw">sum</span> <span class="ty">Options</span>&lt;<span class="ty">T</span>&gt;
-{
-    None,
-    <span class="fn">Some</span>(<span class="ty">T</span> value)
-}</code></pre>
-        </div>
-        <p>Variants with data use a constructor-like syntax. <code>Options</code> is the standard way to represent nullable values — there is no <code>null</code> keyword in Nexus.</p>
-
-        <!-- ── 8. PATTERN MATCHING ─────────────── -->
-        <h2>Pattern Matching</h2>
-        <p>The <code>match</code> expression exhaustively matches against sum type variants. Each arm uses <code>=></code> to bind and execute. Binding inner values uses parenthesis syntax.</p>
-        <div class="code-example">
-          <div class="code-example-label">match on Options&lt;T&gt;</div>
-          <pre><code><span class="kw">match</span> self.tail
-{
-    <span class="ty">Options</span>.<span class="fn">Some</span>(existingTail) <span class="op">=></span>
-    {
-        existingTail.next = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-        node.previous = <span class="ty">Options</span>.<span class="fn">Some</span>(existingTail);
-        self.tail = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-    }
-    <span class="ty">Options</span>.None <span class="op">=></span>
-    {
-        self.head = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-        self.tail = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-    }
-}</code></pre>
-        </div>
-        <div class="callout">
-          <strong>Exhaustiveness:</strong> The compiler enforces that all variants of a sum type are handled. Forgetting a case is a compile error.
-        </div>
-
-        <!-- ── 9. CLASSES ──────────────────────── -->
-        <h2>Classes</h2>
-        <p>Classes are declared with the <code>class</code> keyword and a visibility modifier. Constructors are defined with the special <code>Constructor</code> method name. The <code>self</code> keyword refers to the current instance.</p>
-        <div class="code-example">
-          <div class="code-example-label">class declaration</div>
-          <pre><code><span class="kw">private class</span> <span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;
-{
-    <span class="kw">public</span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; previous;
-    <span class="kw">public</span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; next;
-    <span class="kw">public</span> <span class="ty">T</span> value;
-
-    <span class="kw">public</span> <span class="fn">Constructor</span>(<span class="ty">T</span> value)
-    {
-        self.value    <span class="op">&lt;-</span> value;   <span class="cm">/* explicit move */</span>
-        self.previous = <span class="ty">Options</span>.None;
-        self.next     = <span class="ty">Options</span>.None;
-    }
-}</code></pre>
-        </div>
-
-        <!-- ── 10. GENERICS ───────────────────── -->
-        <h2>Generics</h2>
-        <p>Generics use angle-bracket syntax <code>&lt;T&gt;</code> on both type declarations and method signatures. Generic parameters are resolved at compile time with no runtime overhead.</p>
-        <div class="code-example">
-          <div class="code-example-label">generic class + method</div>
-          <pre><code><span class="kw">public class</span> <span class="ty">LinkedList</span>&lt;<span class="ty">T</span>&gt;
-{
-    <span class="kw">public</span> <span class="fn">Add</span>(<span class="ty">T</span> value) <span class="op">-></span> <span class="ty">LinkedList</span>&lt;<span class="ty">T</span>&gt;
-    {
-        <span class="cm">/! returns self for chaining !/</span>
-        <span class="cm">/* … */</span>
-        <span class="kw">return</span> self;
-    }
-
-    <span class="kw">public</span> <span class="fn">Get</span>(<span class="ty">i32</span> i) <span class="op">-></span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt;
-    {
-        <span class="cm">/* … */</span>
-    }
-}</code></pre>
-        </div>
-
-        <!-- ── 11. RETURN TYPE SYNTAX ─────────── -->
-        <h2>Function Return Types</h2>
-        <p>Return types are declared with <code>-></code> after the parameter list. Methods that return <code>self</code> enable fluent chaining.</p>
-        <div class="code-example">
-          <div class="code-example-label">method signatures</div>
-          <pre><code><span class="kw">public</span> <span class="fn">GetSize</span>() <span class="op">-></span> <span class="ty">i32</span>
-{
-    <span class="kw">return</span> self.size;
-}
-
-<span class="kw">public</span> <span class="fn">GetHead</span>() <span class="op">-></span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt;
-{
-    <span class="kw">return</span> self.head;
-}</code></pre>
-        </div>
-
-        <!-- ── 12. FULL EXAMPLE ───────────────── -->
-        <h2>Full Example — LinkedList</h2>
-        <p>The following is a complete doubly-linked list implementation demonstrating generics, sum types, pattern matching, move semantics, and method chaining together.</p>
-        <div class="code-example">
-          <div class="code-example-label">linked list + main</div>
-          <pre><code><span class="kw">sum</span> <span class="ty">Options</span>&lt;<span class="ty">T</span>&gt;
-{
-    None,
-    <span class="fn">Some</span>(<span class="ty">T</span> value)
-}
-
-<span class="kw">private class</span> <span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;
-{
-    <span class="kw">public</span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; previous;
-    <span class="kw">public</span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; next;
-    <span class="kw">public</span> <span class="ty">T</span> value;
-
-    <span class="kw">public</span> <span class="fn">Constructor</span>(<span class="ty">T</span> value)
-    {
-        self.value    <span class="op">&lt;-</span> value;
-        self.previous = <span class="ty">Options</span>.None;
-        self.next     = <span class="ty">Options</span>.None;
-    }
-}
-
-<span class="kw">public class</span> <span class="ty">LinkedList</span>&lt;<span class="ty">T</span>&gt;
-{
-    <span class="kw">private</span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; head;
-    <span class="kw">private</span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; tail;
-    <span class="kw">private</span> <span class="ty">i32</span> size;
-
-    <span class="kw">public</span> <span class="fn">Constructor</span>()
-    {
-        self.head = <span class="ty">Options</span>.None;
-        self.tail = <span class="ty">Options</span>.None;
-        self.size = <span class="nm">0</span>;
-    }
-
-    <span class="kw">public</span> <span class="fn">Add</span>(<span class="ty">T</span> value) <span class="op">-></span> <span class="ty">LinkedList</span>&lt;<span class="ty">T</span>&gt;  <span class="cm">/! returns self for chaining !/</span>
-    {
-        <span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt; node = <span class="kw">new</span> <span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;(value);
-        <span class="kw">match</span> self.tail
-        {
-            <span class="ty">Options</span>.<span class="fn">Some</span>(existingTail) <span class="op">=></span>
-            {
-                existingTail.next = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-                node.previous = <span class="ty">Options</span>.<span class="fn">Some</span>(existingTail);
-                self.tail = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-            }
-            <span class="ty">Options</span>.None <span class="op">=></span>
-            {
-                self.head = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-                self.tail = <span class="ty">Options</span>.<span class="fn">Some</span>(node);
-            }
-        }
-        self.size<span class="op">++</span>;
-        <span class="kw">return</span> self;
-    }
-
-    <span class="kw">public</span> <span class="fn">Get</span>(<span class="ty">i32</span> i) <span class="op">-></span> <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt;
-    {
-        <span class="ty">Options</span>&lt;<span class="ty">LinkedListNode</span>&lt;<span class="ty">T</span>&gt;&gt; tmp <span class="op">&amp;=</span> self.head;
-        <span class="kw">for</span> (<span class="ty">i32</span> cpt = <span class="nm">0</span>; cpt &lt; i; cpt++)
-        {
-            <span class="kw">match</span> tmp
-            {
-                <span class="ty">Options</span>.<span class="fn">Some</span>(Head) <span class="op">=></span>
-                {
-                    <span class="kw">match</span> tmp.next
-                    {
-                        <span class="ty">Options</span>.<span class="fn">Some</span>(node) <span class="op">=></span> { tmp <span class="op">&amp;=</span> tmp.next; }
-                        <span class="ty">Options</span>.None <span class="op">=></span> { <span class="kw">return</span> <span class="ty">Options</span>.None; }
-                    }
-                }
-                <span class="ty">Options</span>.None <span class="op">=></span> { <span class="kw">return</span> <span class="ty">Options</span>.None; }
-            }
-        }
-        <span class="kw">return</span> tmp;
-    }
-
-    <span class="kw">public</span> <span class="fn">GetSize</span>() <span class="op">-></span> <span class="ty">i32</span> { <span class="kw">return</span> self.size; }
-}
-
-<span class="fn">Main</span>()
-{
-    <span class="fn">Printf</span>(<span class="st">" 5 /  2 = {5/2}  \n"</span>);  <span class="cm">/* 5 /  2 = 2.5  */</span>
-    <span class="fn">Printf</span>(<span class="st">" 5 // 2 = {5//2} \n"</span>);  <span class="cm">/* 5 // 2 = 2    */</span>
-    <span class="fn">Printf</span>(<span class="st">" 5 %  2 = {5%2}  \n"</span>);  <span class="cm">/* 5 %  2 = 1    */</span>
-
-    <span class="ty">LinkedList</span>&lt;<span class="ty">BankAccount</span>&gt; list = <span class="kw">new</span> <span class="ty">LinkedList</span>&lt;<span class="ty">BankAccount</span>&gt;();
-    list.<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">BankAccount</span>())
-        .<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">BankAccount</span>());  <span class="cm">/* chained */</span>
-
-    <span class="kw">while</span> <span class="kw">true</span> <span class="op">=></span> <span class="fn">Printf</span>(<span class="st">"Testing single line loops"</span>);
-}</code></pre>
-        </div>
-
       </div><!-- /.doc-page -->
 
       <footer>
-        <p>Nexus — Joyful &amp; safe systems programming &bull; &copy; 2025–2026 Audric Harris</p>
+        <p>Nexus language &amp; safe systems programming &bull; &copy; 2026 Audric Harris</p>
       </footer>
     </main>
   </div>
