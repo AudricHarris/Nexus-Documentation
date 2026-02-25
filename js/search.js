@@ -22,13 +22,6 @@ const DOC_INDEX = [
       { title: "Arithmetic Operators", anchor: "#", text: "arithmetic operators division / // integer floor modulo % increment ++ decrement -- addition subtraction multiplication" },
       { title: "I/O & String Interpolation", anchor: "#", text: "printf print string interpolation { } expressions evaluated literal output newline \\n format" },
       { title: "Variables & Assignment", anchor: "#", text: "variables assignment copy = move <- borrow &= ownership self.value explicit move transfer reference" },
-      { title: "Control Flow", anchor: "#", text: "control flow for loop while loop single-line => condition body iteration cpt" },
-      { title: "Sum Types (Enums)", anchor: "#", text: "sum types enums Options None Some variant data null-free safe nullable" },
-      { title: "Pattern Matching", anchor: "#", text: "match pattern matching exhaustive arm => bind variant Options.Some Options.None compiler enforce" },
-      { title: "Classes", anchor: "#", text: "class public private Constructor self method visibility modifier declaration instance" },
-      { title: "Generics", anchor: "#", text: "generics <T> angle bracket type parameter compile time no runtime overhead generic class method" },
-      { title: "Return Types", anchor: "#", text: "return type -> arrow function method signature self chaining fluent" },
-      { title: "LinkedList Example", anchor: "#", text: "linked list doubly linked node head tail add get size full example BankAccount chaining move semantics" },
     ]
   },
 ];
