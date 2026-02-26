@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syntax Overview — Nexus</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a href="../index.html" class="topbar-logo">
+      <img src="../images/nexusicon.png" alt="Nexus">
+      <span>NEXUS</span>
+    </a>
+
+    <div class="topbar-search" id="searchBox">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search docs…" autocomplete="off" />
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <a href="https://github.com/AudricHarris/Nexus-Programming-Language" class="topbar-github" target="_blank" rel="noopener">
+      <img src="../images/githubicon.png" alt="GitHub" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;filter:invert(1) opacity(0.6);transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">
+    </a>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Getting Started</div>
+        <a href="../index.html" class="sidebar-link">Home</a>
+        <a href="../index.html#install" class="sidebar-link">Installation</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Language</div>
+        <a href="01-syntax-overview.html" class="sidebar-link">Syntax Overview</a>
+        <a href="02-types.html" class="sidebar-link">Types</a>
+          <!--<a href="docs/generics.html" class="sidebar-link">Generics</a>
+        <a href="docs/pattern-matching.html" class="sidebar-link">Pattern Matching</a>
+        <a href="docs/memory.html" class="sidebar-link">Memory & Ownership</a>
+        <a href="docs/classes.html" class="sidebar-link">Classes</a>
+        <a href="docs/functions.html" class="sidebar-link">Functions</a>
+        <a href="docs/io.html" class="sidebar-link">I/O & Printing</a>-->
+      </div>
+        <!--<div class="sidebar-section">
+        <div class="sidebar-label">Standard Library</div>
+        <a href="docs/stdlib-collections.html" class="sidebar-link">Collections</a>
+        <a href="docs/stdlib-options.html" class="sidebar-link">Options&lt;T&gt;</a>
+      </div>-->
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="content">
+      <div class="doc-page">
+        <h1>Type Overview</h1>
+        <p class="page-subtitle">A tour of Nexus types, initializing, and more.</p>
+
+        
+        <!-- ── 1. PRIMITIVE TYPES ───────────────── -->
+        <h2>Primitive Types</h2>
+        <p>Nexus is statically typed. All primitives have explicit sizes. There is no implicit numeric coercion.</p>
+        <table class="doc-table">
+          <thead>
+            <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>i32</code></td><td>32-bit signed integer</td><td><code>i32 x = 42;</code></td></tr>
+            <tr><td><code>i64</code></td><td>64-bit signed integer</td><td><code>i64 big = 9999999999;</code></td></tr>
+            <tr><td><code>f32</code></td><td>32-bit float</td><td><code>f32 pi = 3.14;</code></td></tr>
+            <tr><td><code>f64</code></td><td>64-bit float</td><td><code>f64 e = 2.718281828;</code></td></tr>
+            <tr><td><code>bool</code></td><td>Boolean</td><td><code>bool flag = true;</code></td></tr>
+            <tr><td><code>str</code></td><td>UTF-8 string</td><td><code>str name = "Nexus";</code></td></tr>
+          </tbody>
+        </table>
+
+        <p>As of 1.3 char type is not yet implemented. (Kind of forgot about it)</p>
+        <p>Same as in many languages. true is 1 and false is 0</p>
+
+        <!-- ── 2. VARIABLES & ASSIGNMENT ──────── -->
+        <h2>Variables &amp; Assignment</h2>
+        <p>Variables are declared with their type (No null declaration). Nexus distinguishes between <em>copy assignment</em> (<code>=</code>) and <em>explicit move</em> (<code>&lt;-</code>), giving you control over ownership at every assignment site.</p>
+        <div class="code-example">
+          <div class="code-example-label">copy vs move</div>
+          <pre><code><span class="ty">i32</span> x = <span class="nm">10</span>;               <span class="cm">/* copy */</span>
+<span class="ty">i32</span> y &lt;- x;              <span class="cm">/* explicit move — x is no longer valid */</span>
+
+<span class="ty">i32</span> tmp <span class="op">&amp;=</span> y;  <span class="cm">/* borrow reference */</span></code></pre>
+        </div>
+        <table class="doc-table">
+          <thead><tr><th>Variable Declaration</th><th>Semantics</th></tr></thead>
+          <tbody>
+            <tr><td><code>T x = value</code></td><td>Copy assignment</td></tr>
+            <tr><td><code>T x &lt;- value</code></td><td>Explicit move (transfers ownership)</td></tr>
+            <tr><td><code>T x &amp;= value</code></td><td>Borrow (reference, not ownership)</td></tr>
+          </tbody>
+        </table>
+
+      </div><!-- /.doc-page -->
+
+      <footer>
+        <p>Nexus language &amp; safe systems programming &bull; &copy; 2026 Audric Harris</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="../js/search.js"></script>
+</body>
+</html>

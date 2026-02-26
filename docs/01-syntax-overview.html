@@ -37,8 +37,8 @@
       <div class="sidebar-section">
         <div class="sidebar-label">Language</div>
         <a href="01-syntax-overview.html" class="sidebar-link">Syntax Overview</a>
-          <!--<a href="docs/types.html" class="sidebar-link">Types</a>
-        <a href="docs/generics.html" class="sidebar-link">Generics</a>
+        <a href="02-types.html" class="sidebar-link">Types</a>
+          <!--<a href="docs/generics.html" class="sidebar-link">Generics</a>
         <a href="docs/pattern-matching.html" class="sidebar-link">Pattern Matching</a>
         <a href="docs/memory.html" class="sidebar-link">Memory & Ownership</a>
         <a href="docs/classes.html" class="sidebar-link">Classes</a>
@@ -69,23 +69,6 @@
 
 <span class="fn">Printf</span>(<span class="st">" Hello, world!"</span>); <span class="cm">/! returns Hello, world!/</span></code></pre>
         </div>
-
-        <!-- ── 2. PRIMITIVE TYPES ───────────────── -->
-        <h2>Primitive Types</h2>
-        <p>Nexus is statically typed. All primitives have explicit sizes. There is no implicit numeric coercion.</p>
-        <table class="doc-table">
-          <thead>
-            <tr><th>Type</th><th>Description</th><th>Example</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><code>i32</code></td><td>32-bit signed integer</td><td><code>i32 x = 42;</code></td></tr>
-            <tr><td><code>i64</code></td><td>64-bit signed integer</td><td><code>i64 big = 9999999999;</code></td></tr>
-            <tr><td><code>f32</code></td><td>32-bit float</td><td><code>f32 pi = 3.14;</code></td></tr>
-            <tr><td><code>f64</code></td><td>64-bit float</td><td><code>f64 e = 2.718281828;</code></td></tr>
-            <tr><td><code>bool</code></td><td>Boolean</td><td><code>bool flag = true;</code></td></tr>
-            <tr><td><code>str</code></td><td>UTF-8 string</td><td><code>str name = "Nexus";</code></td></tr>
-          </tbody>
-        </table>
 
         <!-- ── 3. ARITHMETIC ───────────────────── -->
         <h2>Arithmetic Operators</h2>
@@ -121,24 +104,20 @@
         </div>
 
         <!-- ── 5. VARIABLES & ASSIGNMENT ──────── -->
-        <h2>Variables &amp; Assignment</h2>
-        <p>Variables are declared with their type (No null declaration). Nexus distinguishes between <em>copy assignment</em> (<code>=</code>) and <em>explicit move</em> (<code>&lt;-</code>), giving you control over ownership at every assignment site.</p>
-        <div class="code-example">
-          <div class="code-example-label">copy vs move</div>
-          <pre><code><span class="ty">i32</span> x = <span class="nm">10</span>;               <span class="cm">/* copy */</span>
-<span class="ty">i32</span> y &lt;- x;              <span class="cm">/* explicit move — x is no longer valid */</span>
+        <h2>Conventions</h2>
+          <p>Conventions in nexus are quite simple</p>
+          <table class="doc-table">
+            <thead><tr><th>Object</th><th>Convention</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Functions/Classes/Methods</td><td>PascalCase</td><td><code>Main();</code></td></tr>
+              <tr><td>Variable/Attributes</td><td>lowerCamalCase</td><td><code>i32 numExample = 5;</code></td></tr>
+              <tr><td>Constants</td><td>FULL_CAP_SNAKE_CASE</td><td><code>private const i32 NUM_USERS;</code></td></tr>
+              <tr><td>Static Object</td><td>prefixed with g_/G_ </td><td><code>private static g_GetTotalUsers();</code></td></tr>
+              <tr><td>Indentation</td><td>Use tabs avoid spaces (personnal preference) </td><td><code> </code></td></tr>
+            </tbody>
+          </table>
 
-<span class="ty">i32</span> tmp <span class="op">&amp;=</span> y;  <span class="cm">/* borrow reference */</span></code></pre>
-        </div>
-        <table class="doc-table">
-          <thead><tr><th>Syntax</th><th>Semantics</th></tr></thead>
-          <tbody>
-            <tr><td><code>T x = value</code></td><td>Copy assignment</td></tr>
-            <tr><td><code>T x &lt;- value</code></td><td>Explicit move (transfers ownership)</td></tr>
-            <tr><td><code>T x &amp;= value</code></td><td>Borrow (reference, not ownership)</td></tr>
-          </tbody>
-        </table>
-
+          <p>Note : Some of the object such as classes aren't implemented as of 1.3</p>
       </div><!-- /.doc-page -->
 
       <footer>
