@@ -59,28 +59,28 @@
             <p class="page-subtitle">If, else, comparisons, boolean conditions, and while loops in Nexus 1.3.</p>
 
             <h2>Overview</h2>
-            <p>Nexus uses standard <code>if</code> / <code>else if</code> / <code>else</code> for conditional branching and <code>while</code> for looping. Conditions must evaluate to <code>bool</code> (or types that can be implicitly treated as boolean — currently <code>true</code> = 1, <code>false</code> = 0 works as in many languages).</p>
+            <p>Nexus uses standard <code>if</code> / <code>else if</code> / <code>else</code> for conditional branching and <code>while</code> for looping. Conditions must evaluate to <code>bool</code> (or types that can be implicitly treated as boolean.</p>
 
             <p>Logical operators (<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>) are <strong>not yet implemented</strong> in 1.3. For compound conditions, nest <code>if</code> statements or refactor your logic until 1.4.</p>
 
-            <p>No <code>for</code> loops exist yet — iteration must use <code>while</code>. Full <code>for</code> (including range-based) and enhanced <code>while</code> support (with <code>break</code>/<code>continue</code> improvements) are planned for 1.4.</p>
+            <p>No <code>for</code> loops exist yet, iteration must use <code>while</code>. Full <code>for</code> (including range-based) and enhanced <code>while</code> support (with <code>break</code>/<code>continue</code> improvements) are planned for 1.4.</p>
 
             <h2>Comparisons & Equality</h2>
             <p>Nexus supports the usual comparison operators for primitives:</p>
             <ul>
-              <li><code>==</code> — equality</li>
-              <li><code>!=</code> — inequality</li>
-              <li><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> — ordering (on numeric types)</li>
+              <li><code>==</code> : equality</li>
+              <li><code>!=</code> : inequality</li>
+              <li><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> : ordering (on numeric types)</li>
             </ul>
             <p>Equality <code>==</code> and inequality <code>!=</code> work on integers, floats, booleans, and strings (UTF-8 byte-wise comparison). No implicit conversions occur during comparison.</p>
 
             <div class="code-example">
               <div class="code-example-label">Basic comparisons</div>
               <pre><code><span class="ty">i32</span> a = <span class="nm">42</span>;
-    <span class="ty">i32</span> b = <span class="nm">10</span>;
-    <span class="ty">bool</span> eq = (a == <span class="nm">42</span>);      <span class="cm">/* true */</span>
-    <span class="ty">bool</span> ne = (b != <span class="nm">42</span>);      <span class="cm">/* true */</span>
-    <span class="ty">bool</span> gt = (a &gt; b);             <span class="cm">/* true */</span></code></pre>
+<span class="ty">i32</span> b = <span class="nm">10</span>;
+<span class="ty">bool</span> eq = (a == <span class="nm">42</span>);      <span class="cm">/* true */</span>
+<span class="ty">bool</span> ne = (b != <span class="nm">42</span>);      <span class="cm">/* true */</span>
+<span class="ty">bool</span> gt = (a &gt; b);             <span class="cm">/* true */</span></code></pre>
             </div>
 
             <h2>If / Else If / Else</h2>
@@ -90,37 +90,37 @@
               <div class="code-example-label">If / else if / else examples</div>
               <pre><code><span class="ty">i32</span> test = <span class="nm">5</span>;
 
-    <span class="kw">if</span> (test == <span class="nm">5</span>) {
-        <span class="fu">Printf</span>(<span class="st">"test"</span>);
-    }
+<span class="kw">if</span> (test == <span class="nm">5</span>) {
+    <span class="fu">Printf</span>(<span class="st">"test"</span>);
+}
 
-    <span class="kw">if</span> (test != <span class="nm">6</span>) {
-        test++;
-        <span class="fu">Printf</span>(<span class="st">"updated test : {test}"</span>);
-    } <span class="kw">else</span> {
-        <span class="fu">Print</span>(<span class="st">"equal"</span>);
-    }
+<span class="kw">if</span> (test != <span class="nm">6</span>) {
+    test++;
+    <span class="fu">Printf</span>(<span class="st">"updated test : {test}"</span>);
+} <span class="kw">else</span> {
+    <span class="fu">Print</span>(<span class="st">"equal"</span>);
+}
 
-    <span class="kw">if</span> (test == <span class="nm">7</span>) {
-        <span class="fu">Printf</span>(<span class="st">"somehow 7"</span>);
-    } <span class="kw">else if</span> (test == <span class="nm">6</span>) {
-        <span class="fu">Print</span>(<span class="st">"6 == {test}"</span>);
-    } <span class="kw">else</span> {
-        <span class="kw">return</span> <span class="kw">true</span>;
-    }</code></pre>
+<span class="kw">if</span> (test == <span class="nm">7</span>) {
+    <span class="fu">Printf</span>(<span class="st">"somehow 7"</span>);
+} <span class="kw">else if</span> (test == <span class="nm">6</span>) {
+    <span class="fu">Print</span>(<span class="st">"6 == {test}"</span>);
+} <span class="kw">else</span> {
+    <span class="kw">return</span> <span class="kw">true</span>;
+}</code></pre>
             </div>
 
             <h2>While Loops</h2>
-            <p><code>while</code> loops run as long as the condition is true. The condition is checked before each iteration. Currently experimental in 1.3 — use with care; full stabilization + <code>break</code>/<code>continue</code> expected in 1.4.</p>
+            <p><code>while</code> loops run as long as the condition is true. The condition is checked before each iteration. Currently experimental in 1.3 use with care; full stabilization + <code>break</code>/<code>continue</code> expected in 1.4.</p>
 
             <div class="code-example">
               <div class="code-example-label">While loop example</div>
               <pre><code><span class="ty">i32</span> test = <span class="nm">5</span>;
 
-    <span class="kw">while</span> (test &lt; <span class="nm">10</span>) {
-        test++;
-        <span class="fu">Printf</span>(<span class="st">"test is now {test}"</span>);
-    }</code></pre>
+<span class="kw">while</span> (test &lt; <span class="nm">10</span>) {
+    test++;
+    <span class="fu">Printf</span>(<span class="st">"test is now {test}"</span>);
+}</code></pre>
             </div>
 
             <p>For counting or ranging over values right now, just use <code>while</code> with manual increment/decrement. Better iteration syntax coming in 1.4.</p>
