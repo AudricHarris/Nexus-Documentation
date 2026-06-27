@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Syntax Overview — Nexus</title>
+  <title>Type Overview — Nexus</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -39,26 +39,15 @@
         <a href="01-syntax-overview.html" class="sidebar-link">Syntax Overview</a>
         <a href="02-types.html" class="sidebar-link">Types</a>
         <a href="03-conditionals.html" class="sidebar-link">Conditionals</a>
-          <!--<a href="docs/pattern-matching.html" class="sidebar-link">Pattern Matching</a>
-        <a href="docs/memory.html" class="sidebar-link">Memory & Ownership</a>
-        <a href="docs/classes.html" class="sidebar-link">Classes</a>
-        <a href="docs/functions.html" class="sidebar-link">Functions</a>
-        <a href="docs/io.html" class="sidebar-link">I/O & Printing</a>-->
       </div>
-        <!--<div class="sidebar-section">
-        <div class="sidebar-label">Standard Library</div>
-        <a href="docs/stdlib-collections.html" class="sidebar-link">Collections</a>
-        <a href="docs/stdlib-options.html" class="sidebar-link">Options&lt;T&gt;</a>
-      </div>-->
     </nav>
 
     <!-- CONTENT -->
     <main class="content">
       <div class="doc-page">
         <h1>Type Overview</h1>
-        <p class="page-subtitle">A tour of Nexus types, initializing, and more.</p>
+        <p class="page-subtitle">A tour of Nexus types, initializing, and memory semantics.</p>
 
-        
         <!-- ── 1. PRIMITIVE TYPES ───────────────── -->
         <h2>Primitive Types</h2>
         <p>Nexus is statically typed. All primitives have explicit sizes. There is no implicit numeric coercion.</p>
@@ -84,10 +73,10 @@
         <p>Variables are declared with their type (No null declaration). Nexus distinguishes between <em>copy assignment</em> (<code>=</code>) and <em>explicit move</em> (<code>&lt;-</code>), giving you control over ownership at every assignment site.</p>
         <div class="code-example">
           <div class="code-example-label">copy vs move</div>
-          <pre><code><span class="ty">i32</span> x = <span class="nm">10</span>;               <span class="cm">/* copy */</span>
-<span class="ty">i32</span> y &lt;- x;              <span class="cm">/* explicit move — x is no longer valid */</span>
+          <pre><code><span class="ty">i32</span> x = <span class="nm">10</span>;               <span class="cm">// copy</span>
+<span class="ty">i32</span> y &lt;- x;              <span class="cm">// explicit move — x is no longer valid</span>
 
-<span class="ty">i32</span> tmp <span class="op">&amp;=</span> y;  <span class="cm">/* borrow reference */</span></code></pre>
+<span class="ty">i32</span> tmp <span class="op">&amp;=</span> y;  <span class="cm">// borrow reference</span></code></pre>
         </div>
         <table class="doc-table">
           <thead><tr><th>Variable Declaration</th><th>Semantics</th></tr></thead>
@@ -97,6 +86,93 @@
             <tr><td><code>T x &amp;= value</code></td><td>Borrow (reference, not ownership)</td></tr>
           </tbody>
         </table>
+
+        <!-- ── 3. ENUMS ─────────────────────────── -->
+        <h2>Enumerations (Enums)</h2>
+        <p>Enums represent discrete choices or variants. They can carry auto-incremented variants, explicit mappings, or even wrap generic sub-types like <code>Option&lt;T&gt;</code>.</p>
+        <div class="callout note">
+          <strong>Note:</strong> You can directly evaluate or compare enum choices against raw integer constants (e.g., matching or comparing with <code>1</code>).
+        </div>
+        <div class="code-example">
+          <div class="code-example-label">enum declarations</div>
+          <pre><code>enum Option&lt;T&gt;
+{
+    None,
+    Some(T value)
+}
+
+enum Code
+{
+    A, // 1
+    B, // 2
+    C  // 3
+}
+
+enum Value
+{
+    A = 2, 
+    B // 3
+}</code></pre>
+        </div>
+
+        <!-- ── 4. STRUCTS & MEMORY SEMANTICS ───── -->
+        <h2>Structures &amp; References</h2>
+        <p>Structs group related data fields together. While passing composite objects into fields directly copies data and may waste memory allocations, prefixing type variables with <code>&amp;</code> borrows them cleanly.</p>
+        <div class="code-example">
+          <div class="code-example-label">struct and references usage</div>
+          <pre><code>/! Seperating different type attributes is recommended for readiblity!/
+public struct Animal
+{
+    str name;
+    str type;
+    i32 age;
+}
+
+// works the same without reference but wastes memory!
+fn PrintAnimal(&amp;Animal pet)
+{
+    str name = pet.name;
+    str type = pet.type;
+    i32 age  = pet.age;
+    Printf("Your {type} is called {name} and aged {age}\n");
+}
+
+fn UpdateAnimal(&amp;mut Animal pet, str nName, i32 nAge) -> bool
+{
+    if (0 &lt;= nAge &lt;= 100)
+    {
+        pet.name = nName;
+        pet.age  = nAge;
+        return true;
+    }
+    return false;
+}</code></pre>
+        </div>
+
+        <!-- ── 5. ARRAYS & GENERICS ──────────────── -->
+        <h2>Arrays &amp; Generic Definitions</h2>
+        <p>Arrays utilize explicit sizes at initialization bounds, allocated via the <code>new</code> expression framework. Generic structs allow custom parameters (<code>&lt;T&gt;</code>) to wrap raw array lists safely.</p>
+        <div class="code-example">
+          <div class="code-example-label">fixed array lists and parameter generic collections</div>
+          <pre><code>struct Test
+{
+    str name;
+    i32 age;
+}
+
+struct Array&lt;T&gt;
+{
+    T[] elt;
+    i32 nbElt;
+}
+
+// Example usage context inside logic hooks
+fn InitializeStructure()
+{
+    Test[] content = new Test[5];
+    Array&lt;Test&gt; list = { content, 5 };
+}</code></pre>
+        </div>
 
       </div><!-- /.doc-page -->
 
