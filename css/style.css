@@ -449,6 +449,24 @@ p code, li code {
 .op  { color: var(--operator); }
 .pu  { color: #89ddff; }
 
+/* Prism.js token mapping — bridges Prism's generated classes to the
+   same color variables used above, so code blocks use the Nexus
+   palette instead of the prism-tomorrow theme's own colors. */
+code[class*="language-"], pre[class*="language-"] {
+  color: var(--text-primary);
+  text-shadow: none;
+  background: none;
+}
+.token.keyword     { color: var(--keyword); }
+.token.builtin     { color: var(--keyword); }
+.token.type        { color: var(--type); }
+.token.string      { color: var(--string); }
+.token.comment     { color: var(--comment); font-style: italic; }
+.token.number      { color: var(--number); }
+.token.function    { color: var(--fn); }
+.token.operator    { color: var(--operator); }
+.token.punctuation { color: #89ddff; }
+
 /* code-example box */
 .code-example {
   background: #1a1a1a;
