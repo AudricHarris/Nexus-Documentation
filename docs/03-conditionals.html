@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Conditionals &amp; Control Flow — Nexus</title>
   <link rel="stylesheet" href="../css/style.css">
+  <!-- Prism Syntax Highlighting Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 <body>
 
@@ -74,7 +76,7 @@
         
         <div class="code-example">
           <div class="code-example-label">conditional branching with chained limits</div>
-          <pre><code>public fn CreateAnimal(str name, str type, i32 age) -> Option&lt;Animal&gt;
+          <pre><code class="language-nexus">public fn CreateAnimal(str name, str type, i32 age) -> Option&lt;Animal&gt;
 {
     // Clean chained evaluation bounds checking
     if (0 &lt;= age &lt;= 100)
@@ -92,7 +94,7 @@
 
         <div class="code-example">
           <div class="code-example-label">while and range loop structures</div>
-          <pre><code>// Safe evaluation sequence using while mechanics
+          <pre><code class="language-nexus">// Safe evaluation sequence using while mechanics
 while (start > end) {
     i32 tmp = start;
     start = end;
@@ -117,7 +119,7 @@ public fn CreateListAnimal() -> Option&lt;Animal&gt;[]
 
         <div class="code-example">
           <div class="code-example-label">matching variants and extraction syntax</div>
-          <pre><code>for (Option&lt;Animal&gt; a : lst)
+          <pre><code class="language-nexus">for (Option&lt;Animal&gt; a : lst)
 {
     match (a)
     {
@@ -140,6 +142,11 @@ public fn CreateListAnimal() -> Option&lt;Animal&gt;[]
     </main>
   </div>
 
+  <!-- PRISM SYNTAX HIGHLIGHTING -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" data-manual></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="../js/nexus-syntax.js"></script>
+  <script>Prism.highlightAll();</script>
   <script src="../js/search.js"></script>
 </body>
 </html>

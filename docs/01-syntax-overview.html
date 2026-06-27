@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Syntax Overview — Nexus</title>
   <link rel="stylesheet" href="../css/style.css">
+  <!-- Prism Syntax Highlighting Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 <body>
 
@@ -53,11 +55,11 @@
         <p>Nexus has two comment styles. Single line comments use <code>// ...</code>. Block comments use <code>/! … !/</code>. This allows us to have the two types of divisions shown later. (As of 1.3 there are no documentation comments.)</p>
         <div class="code-example">
           <div class="code-example-label">comment styles</div>
-          <pre><code><span class="cm">// This is a single line comment. It ends automatically at the end of a line.</span>
+          <pre><code class="language-nexus">// This is a single line comment. It ends automatically at the end of a line.
 
 /! This is a block comment. This will span multiple lines. !/
 
-<span class="fn">Printf</span>(<span class="st">" Hello, world!"</span>); <span class="cm">// outputs Hello, world!</span></code></pre>
+Printf(" Hello, world!"); // outputs Hello, world!</code></pre>
         </div>
 
         <!-- ── 3. ARITHMETIC ───────────────────── -->
@@ -81,10 +83,10 @@
         <p>Nexus provides two print functions. <code>Printf</code> evaluates interpolation expressions inside <code>{ }</code> at runtime. <code>Print</code> outputs the string literally — no interpolation.</p>
         <div class="code-example">
           <div class="code-example-label">printf vs print</div>
-          <pre><code><span class="fn">Printf</span>(<span class="st">" 5 /  2 = {5/2}  \n"</span>);  <span class="cm">// 5 /  2 = 2.5  </span>
-<span class="fn">Printf</span>(<span class="st">" 5 %  2 = {5%2}  \n"</span>);  <span class="cm">// 5 %  2 = 1     </span>
+          <pre><code class="language-nexus">Printf(" 5 /  2 = {5/2}  \n");  // 5 /  2 = 2.5  
+Printf(" 5 %  2 = {5%2}  \n");  // 5 %  2 = 1     
 
-<span class="fn">Print</span>(<span class="st">" 5 /  2 = {5/2}"</span> );   <span class="cm">// 5 /  2 = {5/2}   (literal) */</span></code></pre>
+Print(" 5 /  2 = {5/2}" );   // 5 /  2 = {5/2}   (literal)</code></pre>
         </div>
         <div class="callout note">
           <strong>Note:</strong> Anything inside <code>{ }</code> within a <code>Printf</code> string is a full expression — you can call functions, do math, and access fields there.
@@ -114,6 +116,11 @@
     </main>
   </div>
 
+  <!-- PRISM SYNTAX HIGHLIGHTING -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" data-manual></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="../js/nexus-syntax.js"></script>
+  <script>Prism.highlightAll();</script>
   <script src="../js/search.js"></script>
 </body>
 </html>

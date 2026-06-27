@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Type Overview — Nexus</title>
   <link rel="stylesheet" href="../css/style.css">
+  <!-- Prism Syntax Highlighting Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 <body>
 
@@ -73,10 +75,10 @@
         <p>Variables are declared with their type (No null declaration). Nexus distinguishes between <em>copy assignment</em> (<code>=</code>) and <em>explicit move</em> (<code>&lt;-</code>), giving you control over ownership at every assignment site.</p>
         <div class="code-example">
           <div class="code-example-label">copy vs move</div>
-          <pre><code><span class="ty">i32</span> x = <span class="nm">10</span>;               <span class="cm">// copy</span>
-<span class="ty">i32</span> y &lt;- x;              <span class="cm">// explicit move — x is no longer valid</span>
+          <pre><code class="language-nexus">i32 x = 10;               // copy
+i32 y &lt;- x;              // explicit move — x is no longer valid
 
-<span class="ty">i32</span> tmp <span class="op">&amp;=</span> y;  <span class="cm">// borrow reference</span></code></pre>
+i32 tmp &amp;= y;  // borrow reference</code></pre>
         </div>
         <table class="doc-table">
           <thead><tr><th>Variable Declaration</th><th>Semantics</th></tr></thead>
@@ -95,7 +97,7 @@
         </div>
         <div class="code-example">
           <div class="code-example-label">enum declarations</div>
-          <pre><code>enum Option&lt;T&gt;
+          <pre><code class="language-nexus">enum Option&lt;T&gt;
 {
     None,
     Some(T value)
@@ -120,7 +122,7 @@ enum Value
         <p>Structs group related data fields together. While passing composite objects into fields directly copies data and may waste memory allocations, prefixing type variables with <code>&amp;</code> borrows them cleanly.</p>
         <div class="code-example">
           <div class="code-example-label">struct and references usage</div>
-          <pre><code>/! Seperating different type attributes is recommended for readiblity!/
+          <pre><code class="language-nexus">/! Seperating different type attributes is recommended for readiblity!/
 public struct Animal
 {
     str name;
@@ -154,7 +156,7 @@ fn UpdateAnimal(&amp;mut Animal pet, str nName, i32 nAge) -> bool
         <p>Arrays utilize explicit sizes at initialization bounds, allocated via the <code>new</code> expression framework. Generic structs allow custom parameters (<code>&lt;T&gt;</code>) to wrap raw array lists safely.</p>
         <div class="code-example">
           <div class="code-example-label">fixed array lists and parameter generic collections</div>
-          <pre><code>struct Test
+          <pre><code class="language-nexus">struct Test
 {
     str name;
     i32 age;
@@ -183,6 +185,11 @@ fn InitializeStructure()
     </main>
   </div>
 
+  <!-- PRISM SYNTAX HIGHLIGHTING -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" data-manual></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="../js/nexus-syntax.js"></script>
+  <script>Prism.highlightAll();</script>
   <script src="../js/search.js"></script>
 </body>
 </html>
